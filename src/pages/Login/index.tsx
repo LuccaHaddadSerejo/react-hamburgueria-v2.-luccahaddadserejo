@@ -7,6 +7,8 @@ import { useForm } from "react-hook-form";
 import { loginSchema } from "./formSchema";
 import { ButtonForm } from "../../components/ButtonForm";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../providers/userContext";
 
 interface iFormLoginValues {
   email: string;
@@ -14,6 +16,7 @@ interface iFormLoginValues {
 }
 
 const LoginPage = () => {
+  const { submitLogin } = useContext(UserContext);
   const {
     register,
     handleSubmit,
@@ -24,7 +27,7 @@ const LoginPage = () => {
 
   return (
     <div>
-      <Form noValidate={true}>
+      <Form onSubmit={handleSubmit(submitLogin)} noValidate={true}>
         <h2>Login</h2>
         <Input
           id={"userName"}
@@ -44,7 +47,7 @@ const LoginPage = () => {
           register={register("password")}
         />
         {errors.password?.message && <p>{errors.password.message}</p>}
-        <ButtonForm>Logar</ButtonForm>
+        <ButtonForm type="submit">Logar</ButtonForm>
         <p>Crie sua conta para saborear muitas delícias e matar sua fome!</p>
         <Link to={"/register"}>Cadastrar</Link>
       </Form>

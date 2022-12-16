@@ -3,8 +3,13 @@ import React from "react";
 interface iButtonProps {
   children: React.ReactNode;
   onClick: () => void;
+  type: "button" | "submit" | "reset";
 }
 
-export const ButtonForm = ({ children, onClick }: iButtonProps) => {
-  return <button onClick={onClick}>{children}</button>;
+export const Button = ({ children, onClick, type }: iButtonProps) => {
+  return (
+    <button type={type} onClick={onClick}>
+      {children}
+    </button>
+  );
 };
