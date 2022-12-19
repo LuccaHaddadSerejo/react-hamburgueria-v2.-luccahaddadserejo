@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import { CartContext } from "../../providers/cartContext";
+
 import { CartCard } from "../CartCard";
 
 export const CartFull = () => {
-  const { cartProducts, counter } = useContext(CartContext);
-  console.log(counter);
+  const { cartProducts } = useContext(CartContext);
+
   return (
     <div>
       <div>
@@ -28,7 +29,6 @@ export const CartFull = () => {
                     price={product.price}
                     category={product.category}
                     img={product.img}
-                    counter={counter}
                   />
                 );
               })}

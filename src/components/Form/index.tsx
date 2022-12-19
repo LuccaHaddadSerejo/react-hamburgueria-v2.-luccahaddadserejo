@@ -1,4 +1,5 @@
 import React from "react";
+import { StyledForm } from "./style";
 
 interface iFormProps {
   children: React.ReactNode;
@@ -9,9 +10,9 @@ interface iFormProps {
 export const Form = ({ children, noValidate, onSubmit }: iFormProps) => {
   return (
     <>
-      <form noValidate={noValidate} onSubmit={onSubmit}>
+      <StyledForm noValidate={noValidate} onSubmit={onSubmit}>
         {children}
-      </form>
+      </StyledForm>
     </>
   );
 };

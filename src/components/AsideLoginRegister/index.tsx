@@ -1,10 +1,11 @@
 import React from "react";
 import logo from "../../assets/img/Logo.svg";
 import shoppingBag from "../../assets/img/shopping-bag.svg";
+import { StyledAsideContainer } from "./style";
 
 export const AsideLoginRegister = () => {
   return (
-    <div>
+    <StyledAsideContainer>
       <img src={logo} alt="KenzieBurger Logo" />
       <div>
         <div>
@@ -15,6 +16,6 @@ export const AsideLoginRegister = () => {
           <strong> melhores</strong> ingredientes.
         </p>
       </div>
-    </div>
+    </StyledAsideContainer>
   );
 };

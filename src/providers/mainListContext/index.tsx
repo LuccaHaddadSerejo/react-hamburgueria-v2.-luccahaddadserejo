@@ -1,7 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState, SetStateAction } from "react";
 import { createContext } from "react";
-import { api } from "../../services/api";
-import { UserContext } from "../userContext";
 
 export interface iMainContextProps {
   children: React.ReactNode;
@@ -13,40 +11,77 @@ export interface iListProduct {
   category: string;
   price: number;
   img: string;
-  counter?: number;
 }
 
 export interface iMainContextValue {
   mainProductsList: iListProduct[];
+  setMainProductsList: React.Dispatch<SetStateAction<iListProduct[]>>;
+  setFilteredProducts: React.Dispatch<SetStateAction<iListProduct[]>>;
+  setFilterState: React.Dispatch<SetStateAction<boolean>>;
+  searchValue: string;
+  filterState: boolean;
+  handleChangeSearch: (event: any) => void;
+  emptyFilter: () => void;
+  filledFilter: () => void;
+  clearFilter: () => void;
 }
 
 export const MainListContext = createContext({} as iMainContextValue);
 
 export const MainListProvider = ({ children }: iMainContextProps) => {
-  const { setGlobalLoading } = useContext(UserContext);
   const [mainProductsList, setMainProductsList] = useState(
     [] as iListProduct[]
   );
+  const [filteredProducts, setFilteredProducts] = useState(
+    [] as iListProduct[]
+  );
 
-  useEffect(() => {
-    (async () => {
-      const token = JSON.parse(localStorage.getItem("@TOKEN") || "");
-      try {
-        setGlobalLoading(true);
-        const response = await api.get(`/products`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setMainProductsList(() => [...response.data]);
-      } catch (error) {
-      } finally {
-        setGlobalLoading(false);
-      }
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const [filterState, setFilterState] = useState(false);
+
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleChangeSearch = (event: any) => {
+    setSearchValue(event.target.value);
+  };
+
+  const emptyFilter = () => {
+    setMainProductsList(filteredProducts);
+    setFilterState(false);
+  };
+
+  const filledFilter = () => {
+    const filteredList = filteredProducts.filter(
+      (elt) =>
+        elt.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+        elt.category.toLowerCase().includes(searchValue.toLowerCase())
+    );
+
+    setSearchValue(searchValue);
+    setFilterState(true);
+    setMainProductsList(filteredList);
+  };
+
+  const clearFilter = () => {
+    setMainProductsList(filteredProducts);
+    setFilterState(false);
+    setSearchValue("");
+  };
 
   return (
-    <MainListContext.Provider value={{ mainProductsList }}>
+    <MainListContext.Provider
+      value={{
+        mainProductsList,
+        setMainProductsList,
+        setFilteredProducts,
+        setFilterState,
+        searchValue,
+        filterState,
+        handleChangeSearch,
+        emptyFilter,
+        filledFilter,
+        clearFilter,
+      }}
+    >
       {children}
     </MainListContext.Provider>
   );

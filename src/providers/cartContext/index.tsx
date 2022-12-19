@@ -12,9 +12,6 @@ export interface iCartContextValue {
   addItemToCart: (id: number) => void;
   removeItemFromCart: (id: number) => void;
   getTotalPrice: () => string;
-  counter: number;
-  addToCount: (id: number) => void;
-  removeFromCount: (id: number) => void;
 }
 
 export const CartContext = createContext({} as iCartContextValue);
@@ -23,13 +20,12 @@ export const CartProvider = ({ children }: iCartContextProps) => {
   const { setGlobalLoading } = useContext(UserContext);
   const { mainProductsList } = useContext(MainListContext);
   const [cartProducts, setCartProducts] = useState([] as iListProduct[]);
-  const [counter, setCounter] = useState(1);
 
   const addItemToCart = (id: number) => {
     const getItem = mainProductsList.find((product) => product.id === id);
     const verifyArr = cartProducts.some((product) => product.id === id);
     if (verifyArr) {
-      console.log("Deu ruim");
+      console.log("deu ruim");
     } else {
       if (getItem) {
         setCartProducts(() => [...cartProducts, getItem]);
@@ -52,24 +48,23 @@ export const CartProvider = ({ children }: iCartContextProps) => {
     return total.toFixed(2);
   };
 
-  const addToCount = (id: number) => {
-    const getItem = cartProducts.find((product) => product.id === id);
-    console.log(getItem);
-    if (getItem) {
-      if (getItem.counter) {
-        setCounter(counter + 1);
-      }
-    }
-  };
+  // const addToCount = (id: number) => {
+  //   const getItem = cartProducts.find((product) => product.id === id);
+  //   if (getItem) {
+  //     if (getItem.counter) {
+  //       setCounter(counter + 1);
+  //     }
+  //   }
+  // };
 
-  const removeFromCount = (id: number) => {
-    const getItem = cartProducts.find((product) => product.id === id);
-    if (getItem) {
-      if (getItem.counter) {
-        setCounter(counter - 1);
-      }
-    }
-  };
+  // const removeFromCount = (id: number) => {
+  //   const getItem = cartProducts.find((product) => product.id === id);
+  //   if (getItem) {
+  //     if (getItem.counter) {
+  //       setCounter(counter - 1);
+  //     }
+  //   }
+  // };
 
   return (
     <CartContext.Provider
@@ -78,9 +73,6 @@ export const CartProvider = ({ children }: iCartContextProps) => {
         addItemToCart,
         removeItemFromCart,
         getTotalPrice,
-        counter,
-        addToCount,
-        removeFromCount,
       }}
     >
       {children}
