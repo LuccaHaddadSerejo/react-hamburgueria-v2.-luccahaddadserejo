@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import { createContext } from "react";
 import { iListProduct, MainListContext } from "../mainListContext";
-import { UserContext } from "../userContext";
 
 export interface iCartContextProps {
   children: React.ReactNode;
@@ -12,13 +11,17 @@ export interface iCartContextValue {
   addItemToCart: (id: number) => void;
   removeItemFromCart: (id: number) => void;
   getTotalPrice: () => string;
+  isCartOpen: boolean;
+  openCart: () => void;
+  closeCart: () => void;
+  clearCart: () => void;
 }
 
 export const CartContext = createContext({} as iCartContextValue);
 
 export const CartProvider = ({ children }: iCartContextProps) => {
-  const { setGlobalLoading } = useContext(UserContext);
   const { mainProductsList } = useContext(MainListContext);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartProducts, setCartProducts] = useState([] as iListProduct[]);
 
   const addItemToCart = (id: number) => {
@@ -48,23 +51,17 @@ export const CartProvider = ({ children }: iCartContextProps) => {
     return total.toFixed(2);
   };
 
-  // const addToCount = (id: number) => {
-  //   const getItem = cartProducts.find((product) => product.id === id);
-  //   if (getItem) {
-  //     if (getItem.counter) {
-  //       setCounter(counter + 1);
-  //     }
-  //   }
-  // };
+  const openCart = () => {
+    setIsCartOpen(true);
+  };
 
-  // const removeFromCount = (id: number) => {
-  //   const getItem = cartProducts.find((product) => product.id === id);
-  //   if (getItem) {
-  //     if (getItem.counter) {
-  //       setCounter(counter - 1);
-  //     }
-  //   }
-  // };
+  const closeCart = () => {
+    setIsCartOpen(false);
+  };
+
+  const clearCart = () => {
+    setCartProducts([]);
+  };
 
   return (
     <CartContext.Provider
@@ -73,6 +70,10 @@ export const CartProvider = ({ children }: iCartContextProps) => {
         addItemToCart,
         removeItemFromCart,
         getTotalPrice,
+        isCartOpen,
+        openCart,
+        closeCart,
+        clearCart,
       }}
     >
       {children}

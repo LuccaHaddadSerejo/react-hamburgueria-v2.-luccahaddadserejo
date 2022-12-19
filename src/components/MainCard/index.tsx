@@ -1,6 +1,9 @@
 import React, { useContext } from "react";
 import { CartContext } from "../../providers/cartContext";
 import { iListProduct } from "../../providers/mainListContext";
+import { Button } from "../Button";
+import { StyledCard } from "./style";
+
 export const MainListCard = ({
   id,
   name,
@@ -10,14 +13,20 @@ export const MainListCard = ({
 }: iListProduct) => {
   const { addItemToCart } = useContext(CartContext);
   return (
-    <li id={id + ""}>
+    <StyledCard id={id + ""}>
       <img src={img} alt={name} />
       <div>
         <h2>{name}</h2>
         <p>{category}</p>
         <span>R$ {price.toFixed(2)}</span>
-        <button onClick={() => addItemToCart(id)}>Adicionar</button>
+        <Button
+          type="button"
+          buttonType="add"
+          onClick={() => addItemToCart(id)}
+        >
+          Adicionar
+        </Button>
       </div>
-    </li>
+    </StyledCard>
   );
 };

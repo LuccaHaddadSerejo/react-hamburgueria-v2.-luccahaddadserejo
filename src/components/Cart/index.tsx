@@ -1,25 +1,33 @@
 import React, { useContext } from "react";
 import { CartContext } from "../../providers/cartContext";
-
 import { CartCard } from "../CartCard";
+import { TotalValueCart } from "../TotalCartValue";
+import {
+  StyledCart,
+  StyledCartHeader,
+  StyledEmptyCart,
+  StyledFullCart,
+  StyledModalWrapper,
+} from "./style";
 
 export const CartFull = () => {
-  const { cartProducts } = useContext(CartContext);
+  const { cartProducts, closeCart } = useContext(CartContext);
 
   return (
-    <div>
-      <div>
-        <div>
+    <StyledModalWrapper>
+      <StyledCart>
+        <StyledCartHeader>
           <h2>Carrinho de compras</h2>
-        </div>
+          <button onClick={() => closeCart()}>X</button>
+        </StyledCartHeader>
         {cartProducts.length === 0 ? (
-          <div>
+          <StyledEmptyCart>
             <h3>Sua sacola está vazia</h3>
             <p>Adicione itens</p>
-          </div>
+          </StyledEmptyCart>
         ) : (
           <>
-            <div>
+            <StyledFullCart>
               {cartProducts.map((product) => {
                 return (
                   <CartCard
@@ -32,10 +40,11 @@ export const CartFull = () => {
                   />
                 );
               })}
-            </div>
+            </StyledFullCart>
+            <TotalValueCart />
           </>
         )}
-      </div>
-    </div>
+      </StyledCart>
+    </StyledModalWrapper>
   );
 };

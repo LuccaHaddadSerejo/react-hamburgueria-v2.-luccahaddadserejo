@@ -40,8 +40,6 @@ export const StyledLink = styled(Link)`
   text-decoration: underline;
   color: #828282;
   &:hover {
-    background-color: #828282;
-    border-color: #828282;
     color: var(--color-gray100);
   }
 `;
