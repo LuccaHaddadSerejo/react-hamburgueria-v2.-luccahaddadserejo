@@ -15,6 +15,9 @@ export interface iCartContextValue {
   openCart: () => void;
   closeCart: () => void;
   clearCart: () => void;
+  addCounter: (id: number) => void;
+  subtractCounter: (id: number) => void;
+  productCounter: number;
 }
 
 export const CartContext = createContext({} as iCartContextValue);
@@ -23,6 +26,7 @@ export const CartProvider = ({ children }: iCartContextProps) => {
   const { mainProductsList } = useContext(MainListContext);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartProducts, setCartProducts] = useState([] as iListProduct[]);
+  const [productCounter, setProductCounter] = useState(1);
 
   const addItemToCart = (id: number) => {
     const getItem = mainProductsList.find((product) => product.id === id);
@@ -37,6 +41,11 @@ export const CartProvider = ({ children }: iCartContextProps) => {
   };
 
   const removeItemFromCart = (id: number) => {
+    const findProduct = cartProducts.find((product) => product.id === id);
+    if (findProduct) {
+      findProduct.counter = 1;
+    }
+
     const filterList = cartProducts.filter((product) => product.id !== id);
     if (filterList) {
       setCartProducts(() => [...filterList]);
@@ -44,10 +53,15 @@ export const CartProvider = ({ children }: iCartContextProps) => {
   };
 
   const getTotalPrice = (): string => {
-    const total = cartProducts.reduce(
-      (acc, currentValue) => acc + currentValue.price,
+    const getTotalSum = cartProducts.map(
+      (product) => product.counter * product.price
+    );
+
+    const total = getTotalSum.reduce(
+      (acc, currentValue) => acc + currentValue,
       0
     );
+
     return total.toFixed(2);
   };
 
@@ -60,12 +74,33 @@ export const CartProvider = ({ children }: iCartContextProps) => {
   };
 
   const clearCart = () => {
+    cartProducts.map((product) => (product.counter = 1));
     setCartProducts([]);
+  };
+
+  const addCounter = (id: number) => {
+    setProductCounter(productCounter + 1);
+    const verifyArr = cartProducts.find((product) => product.id === id);
+    if (verifyArr) {
+      verifyArr.counter = verifyArr.counter + 1;
+    }
+  };
+
+  const subtractCounter = (id: number) => {
+    const verifyArr = cartProducts.find((product) => product.id === id);
+
+    if (verifyArr) {
+      if (verifyArr.counter > 1) {
+        setProductCounter(productCounter - 1);
+        verifyArr.counter = verifyArr.counter - 1;
+      }
+    }
   };
 
   return (
     <CartContext.Provider
       value={{
+        productCounter,
         cartProducts,
         addItemToCart,
         removeItemFromCart,
@@ -74,6 +109,8 @@ export const CartProvider = ({ children }: iCartContextProps) => {
         openCart,
         closeCart,
         clearCart,
+        addCounter,
+        subtractCounter,
       }}
     >
       {children}

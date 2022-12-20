@@ -11,6 +11,7 @@ export interface iListProduct {
   category: string;
   price: number;
   img: string;
+  counter: number;
 }
 
 export interface iMainContextValue {

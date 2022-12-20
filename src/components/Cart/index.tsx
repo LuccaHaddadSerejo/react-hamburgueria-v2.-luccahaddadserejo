@@ -37,6 +37,7 @@ export const CartFull = () => {
                     price={product.price}
                     category={product.category}
                     img={product.img}
+                    counter={product.counter}
                   />
                 );
               })}

@@ -4,7 +4,7 @@ import { CartFull } from "../../components/Cart";
 import { MainListCard } from "../../components/MainCard";
 import Header from "../../components/StoreHeader";
 import { CartContext } from "../../providers/cartContext";
-import { MainListContext } from "../../providers/mainListContext";
+import { iListProduct, MainListContext } from "../../providers/mainListContext";
 import { UserContext } from "../../providers/userContext";
 import { api } from "../../services/api";
 import { StyledFilterDiv, StyledMainList, StyledSection } from "./style";
@@ -29,8 +29,14 @@ const StorePage = () => {
         const response = await api.get(`/products`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setMainProductsList(() => [...response.data]);
-        setFilteredProducts(() => [...response.data]);
+        const newData = response.data.map((product: iListProduct) => {
+          return {
+            ...product,
+            counter: 1,
+          };
+        });
+        setMainProductsList(() => [...newData]);
+        setFilteredProducts(() => [...newData]);
       } catch (error) {
       } finally {
         setGlobalLoading(false);
@@ -57,6 +63,7 @@ const StorePage = () => {
           {mainProductsList.map((product) => {
             return (
               <MainListCard
+                counter={product.counter}
                 key={product.id}
                 id={product.id}
                 name={product.name}

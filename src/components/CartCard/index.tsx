@@ -5,8 +5,10 @@ import trashIcon from "../../assets/img/trash-icon.svg";
 import { StyledCartCard } from "./style";
 import { Button } from "../Button";
 
-export const CartCard = ({ id, name, price, img }: iListProduct) => {
-  const { removeItemFromCart } = useContext(CartContext);
+export const CartCard = ({ id, name, price, img, counter }: iListProduct) => {
+  const { removeItemFromCart, addCounter, subtractCounter } =
+    useContext(CartContext);
+
   return (
     <StyledCartCard id={id + ""}>
       <div>
@@ -20,15 +22,23 @@ export const CartCard = ({ id, name, price, img }: iListProduct) => {
           </Button>
         </div>
         <div>
-          <p>R$ {price.toFixed(2)}</p>
+          <p>R$ {price * counter}</p>
           <div>
-            <Button buttonVariation="addAndSubtractCart" type="button">
+            <Button
+              onClick={() => subtractCounter(id)}
+              buttonVariation="addAndSubtractCart"
+              type="button"
+            >
               -
             </Button>
             <div>
-              <span>1</span>
+              <span>{counter}</span>
             </div>
-            <Button buttonVariation="addAndSubtractCart" type="button">
+            <Button
+              onClick={() => addCounter(id)}
+              buttonVariation="addAndSubtractCart"
+              type="button"
+            >
               +
             </Button>
           </div>
