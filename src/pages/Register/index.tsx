@@ -82,7 +82,7 @@ const RegisterPage = () => {
             {errors.confirm_password?.message && (
               <p>{errors.confirm_password.message}</p>
             )}
-            <Button buttonType="register" type="submit">
+            <Button buttonVariation="register" type="submit">
               Cadastrar
             </Button>
           </Form>

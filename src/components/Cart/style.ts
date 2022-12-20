@@ -5,10 +5,10 @@ export const StyledModalWrapper = styled.div`
   min-height: 100vh;
   background-color: rgba(18, 18, 20, 0.5);
   position: fixed;
+  bottom: 0px;
   display: flex;
   align-items: center;
   justify-content: center;
-  bottom: 30px;
   padding: 0 15px;
 `;
 
@@ -18,6 +18,8 @@ export const StyledCart = styled.div`
   width: 100%;
   max-width: 500px;
   border-radius: 5px;
+  position: relative;
+  bottom: 100px;
 `;
 
 export const StyledCartHeader = styled.div`
@@ -43,10 +45,10 @@ export const StyledCartHeader = styled.div`
     color: white;
     font-size: var(--font-size4);
     font-weight: var(--weight3);
-    transition: 0.4s;
+    transition: 0.4;
 
     &:hover {
-      filter: brightness(1.2);
+      color: var(--color-negative);
     }
   }
 `;
@@ -76,7 +78,6 @@ export const StyledEmptyCart = styled.div`
 `;
 
 export const StyledFullCart = styled.ul`
-  border-radius: 0px 0px 5px 5px;
   max-height: 350px;
   border: 1px solid var(--color-gray0);
   background-color: var(--color-gray0);

@@ -53,7 +53,7 @@ const LoginPage = () => {
             />
             {errors.password?.message && <p>{errors.password.message}</p>}
             <div>
-              <Button buttonType={"login"} type="submit">
+              <Button buttonVariation={"login"} type="submit">
                 Logar
               </Button>
             </div>

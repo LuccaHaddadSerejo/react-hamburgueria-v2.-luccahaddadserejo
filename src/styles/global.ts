@@ -37,6 +37,7 @@ export default createGlobalStyle`
     margin:0;
     padding: 0;
     outline:0;
+    list-style: none;
     box-sizing: border-box;
     font-family: 'Inter', sans-serif;
   }

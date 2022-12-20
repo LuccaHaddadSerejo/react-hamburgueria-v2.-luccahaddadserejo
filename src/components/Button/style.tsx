@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 export interface iStyledButtonProps {
-  buttonType?: "login" | "register" | "search" | "add" | any;
+  buttonVariation?: string;
 }
 
 export const StyledButton = styled.button<iStyledButtonProps>`
@@ -12,8 +12,8 @@ export const StyledButton = styled.button<iStyledButtonProps>`
   border-radius: var(--radius3);
   transition: 0.4s;
 
-  ${({ buttonType }) => {
-    switch (buttonType) {
+  ${({ buttonVariation }) => {
+    switch (buttonVariation) {
       case "login":
         return css`
           width: 100%;
@@ -75,6 +75,34 @@ export const StyledButton = styled.button<iStyledButtonProps>`
           &:hover {
             background-color: var(--color-primary);
             border-color: var(--color-primary);
+          }
+        `;
+      case "clearCart":
+        return css`
+          width: 100%;
+          height: 60px;
+          background-color: var(--color-gray300);
+          border: 1px solid var(--color-gray300);
+          border-radius: var(--radius2);
+          font-weight: var(--weight2);
+          font-size: var(--font-size5);
+          color: var(--color-gray100);
+
+          &:hover {
+            filter: brightness(1.2);
+            color: var(--color-gray0);
+          }
+        `;
+      case "addAndSubtractCart":
+        return css`
+          height: 100%;
+          background: none;
+          color: var(--color-primary);
+          font-size: var(--font-size3);
+          font-weight: var(--weight3);
+          border: none;
+          &:hover {
+            filter: brightness(1.2);
           }
         `;
     }

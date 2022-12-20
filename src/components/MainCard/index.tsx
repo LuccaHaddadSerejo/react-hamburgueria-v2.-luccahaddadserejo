@@ -21,7 +21,7 @@ export const MainListCard = ({
         <span>R$ {price.toFixed(2)}</span>
         <Button
           type="button"
-          buttonType="add"
+          buttonVariation="add"
           onClick={() => addItemToCart(id)}
         >
           Adicionar

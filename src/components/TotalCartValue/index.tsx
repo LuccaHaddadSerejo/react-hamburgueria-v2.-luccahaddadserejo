@@ -9,10 +9,10 @@ export const TotalValueCart = () => {
     <StyledTotal>
       <div>
         <p>Total:</p>
-        <span>{getTotalPrice()}</span>
+        <span>R$ {getTotalPrice()}</span>
       </div>
       <Button
-        buttonType={"register"}
+        buttonVariation={"clearCart"}
         type={"button"}
         onClick={() => clearCart()}
       >

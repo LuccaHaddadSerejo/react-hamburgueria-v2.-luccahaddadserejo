@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const StyledTotal = styled.div`
   border-top: 2px solid var(--color-gray100);
+  border-radius: 0 0 5px 5px;
   padding: 20px 15px;
   gap: 25px;
   width: 100%;

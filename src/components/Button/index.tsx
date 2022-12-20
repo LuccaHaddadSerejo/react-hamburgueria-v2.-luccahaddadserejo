@@ -5,17 +5,21 @@ interface iButtonProps {
   children: React.ReactNode;
   type: "button" | "submit" | "reset";
   onClick?: () => void;
-  buttonType?: string;
+  buttonVariation?: string;
 }
 
 export const Button = ({
   children,
   onClick,
   type,
-  buttonType,
+  buttonVariation,
 }: iButtonProps) => {
   return (
-    <StyledButton buttonType={buttonType} type={type} onClick={onClick}>
+    <StyledButton
+      buttonVariation={buttonVariation}
+      type={type}
+      onClick={onClick}
+    >
       {children}
     </StyledButton>
   );
