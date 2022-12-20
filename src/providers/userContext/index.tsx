@@ -94,9 +94,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         "/users",
         formData
       );
-      toast.success(
-        "Conta criada com sucesso, você será redirecionado para o login em instantes"
-      );
+      toast.success("Conta criada com sucesso");
       navigate("/");
     } catch (error) {
       const currentError = error as AxiosError<iErrorResponse>;
@@ -123,9 +121,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         "/login",
         formData
       );
-      toast.success(
-        "Login efetuado com sucesso, você será redirecionado para o Store em instantes"
-      );
+      toast.success(`Seja bem-vindo, ${response.data.user.name}`);
       localStorage.setItem("@TOKEN", JSON.stringify(response.data.accessToken));
       localStorage.setItem("@USERID", JSON.stringify(response.data.user.id));
       setUser(response.data.user);

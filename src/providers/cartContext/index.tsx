@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { createContext } from "react";
+import { toast } from "react-toastify";
 import { iListProduct, MainListContext } from "../mainListContext";
 
 export interface iCartContextProps {
@@ -32,9 +33,10 @@ export const CartProvider = ({ children }: iCartContextProps) => {
     const getItem = mainProductsList.find((product) => product.id === id);
     const verifyArr = cartProducts.some((product) => product.id === id);
     if (verifyArr) {
-      console.log("deu ruim");
+      toast.warning("Você já adicionou este produto ao carrinho");
     } else {
       if (getItem) {
+        toast.success("Produto adicionado ao carrinho com sucesso");
         setCartProducts(() => [...cartProducts, getItem]);
       }
     }
@@ -50,6 +52,7 @@ export const CartProvider = ({ children }: iCartContextProps) => {
     if (filterList) {
       setCartProducts(() => [...filterList]);
     }
+    toast.success("Produto removido com sucesso");
   };
 
   const getTotalPrice = (): string => {
@@ -76,6 +79,7 @@ export const CartProvider = ({ children }: iCartContextProps) => {
   const clearCart = () => {
     cartProducts.map((product) => (product.counter = 1));
     setCartProducts([]);
+    toast.success("Produtos removidos com sucesso");
   };
 
   const addCounter = (id: number) => {
