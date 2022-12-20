@@ -3,6 +3,7 @@ import { createContext } from "react";
 import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { AxiosError } from "axios";
 
 export interface iUserProviderProps {
   children: React.ReactNode;
@@ -20,20 +21,34 @@ export interface iFormLoginData {
   password: string;
 }
 
+export interface iUserState {
+  email: string;
+  name: string;
+  id: number;
+  password?: string;
+}
+
+export interface iLoginRegisterResponse {
+  accessToken: string;
+  user: iUserState;
+}
+
+export interface iErrorData {
+  data: string;
+}
+
+export interface iErrorResponse {
+  response: iErrorData;
+}
+
 export interface iUserProviderValue {
   globalLoading: boolean;
   setGlobalLoading: React.Dispatch<SetStateAction<boolean>>;
   storeLoading: boolean;
   submitRegister: (data: iFormRegisterData) => void;
   submitLogin: (data: iFormLoginData) => void;
-  user: null | iUserStateValue;
+  user: iUserState | null;
   logout: () => void;
-}
-
-export interface iUserStateValue {
-  email: string;
-  name: string;
-  id: number;
 }
 
 export const UserContext = createContext({} as iUserProviderValue);
@@ -41,7 +56,7 @@ export const UserContext = createContext({} as iUserProviderValue);
 export const UserProvider = ({ children }: iUserProviderProps) => {
   const [globalLoading, setGlobalLoading] = useState(false);
   const [storeLoading, setStoreLoading] = useState(true);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<null | iUserState>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -56,12 +71,14 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
 
       try {
         setStoreLoading(true);
-        const response = await api.get(`/users/${id}`, {
+        const response = await api.get<iUserState>(`/users/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(response.data);
         navigate(`/store/${response.data.name}/${response.data.id}`);
       } catch (error) {
+        const currentError = error as AxiosError<iErrorResponse>;
+        toast.error(currentError.response?.data + "");
       } finally {
         setStoreLoading(false);
       }
@@ -73,12 +90,17 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
     try {
       setGlobalLoading(true);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const response = await api.post("/users", formData);
+      const response = await api.post<iLoginRegisterResponse>(
+        "/users",
+        formData
+      );
       toast.success(
         "Conta criada com sucesso, você será redirecionado para o login em instantes"
       );
       navigate("/");
     } catch (error) {
+      const currentError = error as AxiosError<iErrorResponse>;
+      toast.error(currentError.response?.data + "");
     } finally {
       setGlobalLoading(false);
     }
@@ -97,7 +119,10 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
   const userLogin = async (formData: iFormLoginData) => {
     try {
       setGlobalLoading(true);
-      const response = await api.post("/login", formData);
+      const response = await api.post<iLoginRegisterResponse>(
+        "/login",
+        formData
+      );
       toast.success(
         "Login efetuado com sucesso, você será redirecionado para o Store em instantes"
       );
@@ -106,6 +131,8 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       setUser(response.data.user);
       navigate(`/store/${response.data.user.name}/${response.data.user.id}`);
     } catch (error) {
+      const currentError = error as AxiosError<iErrorResponse>;
+      toast.error(currentError.response?.data + "");
     } finally {
       setGlobalLoading(false);
     }
