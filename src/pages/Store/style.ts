@@ -12,6 +12,8 @@ export const StyledFilterDiv = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+  margin-top: 40px;
+  gap: 30px;
 
   div {
     display: flex;
@@ -30,9 +32,9 @@ export const StyledFilterDiv = styled.div`
   h2 {
     font-weight: 700;
     font-size: 26px;
-    color: var(--color-gray100);
+    color: var(--color-gray300);
 
-    @media (min-width: 600px) {
+    @media (max-width: 600px) {
       font-size: 18px;
     }
   }
@@ -40,9 +42,9 @@ export const StyledFilterDiv = styled.div`
   p {
     font-weight: 700;
     font-size: 26px;
-    color: var(--color-gray100);
+    color: var(--color-gray300);
 
-    @media (min-width: 600px) {
+    @media (max-width: 600px) {
       font-size: 18px;
     }
   }
@@ -51,7 +53,7 @@ export const StyledFilterDiv = styled.div`
     max-width: 641px;
   }
 
-  @media (min-width: 950px) {
+  @media (max-width: 950px) {
     flex-direction: column;
   }
 

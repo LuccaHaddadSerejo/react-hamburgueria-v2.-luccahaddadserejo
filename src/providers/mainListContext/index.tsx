@@ -1,4 +1,4 @@
-import React, { useState, SetStateAction } from "react";
+import React, { useState, SetStateAction, ChangeEvent } from "react";
 import { createContext } from "react";
 
 export interface iMainContextProps {
@@ -21,7 +21,7 @@ export interface iMainContextValue {
   setFilterState: React.Dispatch<SetStateAction<boolean>>;
   searchValue: string;
   filterState: boolean;
-  handleChangeSearch: (event: any) => void;
+  handleChangeSearch: (event: ChangeEvent<HTMLInputElement>) => void;
   emptyFilter: () => void;
   filledFilter: () => void;
   clearFilter: () => void;
@@ -41,7 +41,7 @@ export const MainListProvider = ({ children }: iMainContextProps) => {
 
   const [searchValue, setSearchValue] = useState("");
 
-  const handleChangeSearch = (event: any) => {
+  const handleChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
   };
 

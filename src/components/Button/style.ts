@@ -105,6 +105,22 @@ export const StyledButton = styled.button<iStyledButtonProps>`
             filter: brightness(1.2);
           }
         `;
+      case "clearFilter":
+        return css`
+          width: 100%;
+          height: 40px;
+          max-width: 160px;
+          background-color: var(--color-primary);
+          border: 1px solid var(--color-primary);
+          border-radius: var(--radius2);
+          font-weight: var(--weight2);
+          font-size: var(--font-size5);
+          color: white;
+
+          &:hover {
+            filter: brightness(1.2);
+          }
+        `;
     }
   }}
 `;

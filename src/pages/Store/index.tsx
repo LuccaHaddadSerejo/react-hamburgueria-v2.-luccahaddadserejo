@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useContext } from "react";
+import { Button } from "../../components/Button";
 import { CartFull } from "../../components/Cart";
 import { MainListCard } from "../../components/MainCard";
 import Header from "../../components/StoreHeader";
@@ -56,7 +57,13 @@ const StorePage = () => {
               <h2>Resultados para:</h2>
               <p>{searchValue}</p>
             </div>
-            <button onClick={() => clearFilter()}>Limpar Busca</button>
+            <Button
+              type="button"
+              buttonVariation="clearFilter"
+              onClick={() => clearFilter()}
+            >
+              Limpar Busca
+            </Button>
           </StyledFilterDiv>
         )}
         <StyledMainList>

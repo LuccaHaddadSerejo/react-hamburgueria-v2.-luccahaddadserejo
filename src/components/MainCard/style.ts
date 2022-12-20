@@ -1,10 +1,8 @@
 import styled from "styled-components";
 
 export const StyledCard = styled.li`
-  min-width: 360px;
-  max-width: 400px;
-  min-height: 346px;
-  max-height: 346px;
+  min-width: 358px;
+  min-height: 358px;
   display: flex;
   flex-direction: column;
   border: 2px solid var(--color-gray100);

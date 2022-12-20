@@ -14,6 +14,10 @@ export const StyledHeader = styled.header`
   @media (max-width: 1140px) {
     padding: 1rem;
   }
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
 `;
 
 export const StyledBackground = styled.div`

@@ -8,6 +8,7 @@ import { MainListContext } from "../../providers/mainListContext";
 import { UserContext } from "../../providers/userContext";
 import { Input } from "../Input";
 import { StyledBackground, StyledHeader, StyledNav } from "./style";
+import { Button } from "../Button";
 
 const Header = () => {
   const { searchValue, emptyFilter, filledFilter, handleChangeSearch } =
@@ -34,24 +35,24 @@ const Header = () => {
               onChange={handleChangeSearch}
             />
 
-            <button onClick={() => createFilter()}>
+            <Button type="button" onClick={() => createFilter()}>
               <img
                 src={magnifyingGlassSmall}
                 alt="magnifying-glass-small Icon"
               />
-            </button>
+            </Button>
           </div>
           <div>
-            <button onClick={() => openCart()}>
+            <Button type={"button"} onClick={() => openCart()}>
               <img src={cartIcon} alt="Cart Icon" />
-            </button>
+            </Button>
             <div>
               <span>{cartProducts.length}</span>
             </div>
           </div>
-          <button type="button" onClick={() => logout()}>
+          <Button type="button" onClick={() => logout()}>
             <img src={logoutIcon} alt="Logout Icon" />
-          </button>
+          </Button>
         </StyledNav>
       </StyledHeader>
     </StyledBackground>

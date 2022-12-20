@@ -1,3 +1,4 @@
+import React, { ChangeEvent } from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
 import { StyledInput } from "./style";
 
@@ -10,7 +11,7 @@ interface iInputProps {
   register?: UseFormRegisterReturn;
   inputVariation?: string;
   value?: string;
-  onChange?: any;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const Input = ({
