@@ -1,4 +1,5 @@
 import React from "react";
+import ellipses from "../../assets/img/ellipseContainer.svg";
 import { AsideLoginRegister } from "../../components/AsideLoginRegister";
 import { Form } from "../../components/Form";
 import { Input } from "../../components/Input";
@@ -8,7 +9,12 @@ import { registerSchema } from "./formSchema";
 import { useContext } from "react";
 import { UserContext } from "../../providers/userContext";
 import { Button } from "../../components/Button";
-import { StyledDiv, StyledLink, StyledRegisterFull } from "./style";
+import {
+  StyledDiv,
+  StyledError,
+  StyledLink,
+  StyledRegisterFull,
+} from "./style";
 
 interface iFormRegisterValues {
   name: string;
@@ -33,6 +39,7 @@ const RegisterPage = () => {
       <main>
         <section>
           <AsideLoginRegister />
+          <img src={ellipses} alt="Ellipses container" />
         </section>
         <section>
           <Form onSubmit={handleSubmit(submitRegister)} noValidate={true}>
@@ -49,7 +56,9 @@ const RegisterPage = () => {
               placeholder={"Digite seu nome"}
               register={register("name")}
             />
-            {errors.name?.message && <p>{errors.name.message}</p>}
+            {errors.name?.message && (
+              <StyledError>{errors.name.message}</StyledError>
+            )}
             <Input
               inputVariation={"form"}
               id={"userRegisterEmail"}
@@ -59,7 +68,9 @@ const RegisterPage = () => {
               placeholder={"Digite seu email"}
               register={register("email")}
             />
-            {errors.email?.message && <p>{errors.email.message}</p>}
+            {errors.email?.message && (
+              <StyledError>{errors.email.message}</StyledError>
+            )}
             <Input
               inputVariation={"form"}
               id={"userRegisterPassword"}
@@ -69,7 +80,9 @@ const RegisterPage = () => {
               placeholder={"Digite sua senha"}
               register={register("password")}
             />
-            {errors.password?.message && <p>{errors.password.message}</p>}
+            {errors.password?.message && (
+              <StyledError>{errors.password.message}</StyledError>
+            )}
             <Input
               inputVariation={"form"}
               id={"userRegisterConfirmEmail"}
@@ -80,7 +93,7 @@ const RegisterPage = () => {
               register={register("confirm_password")}
             />
             {errors.confirm_password?.message && (
-              <p>{errors.confirm_password.message}</p>
+              <StyledError>{errors.confirm_password.message}</StyledError>
             )}
             <Button buttonVariation="register" type="submit">
               Cadastrar

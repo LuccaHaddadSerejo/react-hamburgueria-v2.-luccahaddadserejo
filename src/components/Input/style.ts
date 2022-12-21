@@ -7,6 +7,19 @@ export interface iStyledInputProps {
 export const StyledInput = styled.div<iStyledInputProps>`
   gap: 3px;
   margin-top: 15px;
+  position: relative;
+
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    width: fit-content;
+    background-color: white;
+    position: absolute;
+    top: -9px;
+    left: 18px;
+  }
 
   input {
     border-radius: var(--radius3);
@@ -18,7 +31,7 @@ export const StyledInput = styled.div<iStyledInputProps>`
             width: 100%;
             height: 60px;
             background-color: white;
-            border: 1px solid var(--color-gray100);
+            border: 2px solid var(--color-gray100);
             border-radius: var(--radius2);
             font-weight: var(--weight4);
             font-size: var(--font-size5);

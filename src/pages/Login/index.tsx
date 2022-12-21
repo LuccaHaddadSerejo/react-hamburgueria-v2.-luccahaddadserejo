@@ -1,4 +1,5 @@
 import React from "react";
+import ellipses from "../../assets/img/ellipseContainer.svg";
 import { AsideLoginRegister } from "../../components/AsideLoginRegister";
 import { Form } from "../../components/Form";
 import { Input } from "../../components/Input";
@@ -7,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { loginSchema } from "./formSchema";
 import { useContext } from "react";
 import { UserContext } from "../../providers/userContext";
-import { StyledLink, StyledLoginFull } from "./style";
+import { StyledError, StyledLink, StyledLoginFull } from "./style";
 import { Button } from "../../components/Button";
 
 interface iFormLoginValues {
@@ -28,8 +29,11 @@ const LoginPage = () => {
   return (
     <StyledLoginFull>
       <main>
-        <AsideLoginRegister />
-        <div>
+        <section>
+          <AsideLoginRegister />
+          <img src={ellipses} alt="Ellipses container" />
+        </section>
+        <section>
           <Form onSubmit={handleSubmit(submitLogin)} noValidate={true}>
             <h2>Login</h2>
             <Input
@@ -41,7 +45,9 @@ const LoginPage = () => {
               placeholder={"Digite seu email aqui"}
               register={register("email")}
             />
-            {errors.email?.message && <p>{errors.email.message}</p>}
+            {errors.email?.message && (
+              <StyledError>{errors.email.message}</StyledError>
+            )}
             <Input
               inputVariation={"form"}
               id={"userPassword"}
@@ -51,7 +57,9 @@ const LoginPage = () => {
               placeholder={"Digite sua senha aqui"}
               register={register("password")}
             />
-            {errors.password?.message && <p>{errors.password.message}</p>}
+            {errors.password?.message && (
+              <StyledError>{errors.password.message}</StyledError>
+            )}
             <div>
               <Button buttonVariation={"login"} type="submit">
                 Logar
@@ -62,7 +70,7 @@ const LoginPage = () => {
             </p>
             <StyledLink to={"/register"}>Cadastrar</StyledLink>
           </Form>
-        </div>
+        </section>
       </main>
     </StyledLoginFull>
   );

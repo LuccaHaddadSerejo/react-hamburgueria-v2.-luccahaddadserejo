@@ -27,7 +27,9 @@ export const Input = ({
 }: iInputProps) => {
   return (
     <StyledInput inputVariation={inputVariation}>
-      <label htmlFor={id}>{label}</label>
+      <div>
+        <label htmlFor={id}>{label}</label>
+      </div>
       <input
         onChange={onChange}
         value={value}

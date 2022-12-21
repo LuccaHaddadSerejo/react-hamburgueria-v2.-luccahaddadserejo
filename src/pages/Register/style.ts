@@ -15,9 +15,22 @@ export const StyledRegisterFull = styled.div`
     padding: 15px;
     border: 1px solid transparent;
 
+    & > :nth-child(1) {
+      & > :nth-child(2) {
+        @media (max-width: 800px) {
+          display: none;
+        }
+      }
+    }
+
     section {
       width: 100%;
-      max-width: 1500px;
+
+      form {
+        @media (min-width: 800px) {
+          min-width: 450px;
+        }
+      }
 
       button {
         margin-top: 15px;
@@ -56,4 +69,9 @@ export const StyledDiv = styled.div`
     font-size: var(--font-size4);
     color: #333333;
   }
+`;
+
+export const StyledError = styled.p`
+  margin-top: 10px;
+  color: red;
 `;

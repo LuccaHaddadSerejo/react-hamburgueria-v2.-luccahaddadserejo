@@ -53,7 +53,7 @@ export default createGlobalStyle`
   }
 
   body {
-    background-color: var(--color-gray400);
+    background-color: white;
   }
   
   button {

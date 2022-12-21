@@ -15,9 +15,28 @@ export const StyledLoginFull = styled.div`
     padding: 15px;
     border: 1px solid transparent;
 
-    & > div {
+    & > :nth-child(1) {
+      & > :nth-child(2) {
+        @media (max-width: 800px) {
+          display: none;
+        }
+      }
+    }
+
+    & > :nth-child(2) {
       width: 100%;
-      max-width: 1500px;
+      max-width: fit-content;
+
+      form {
+        & > p:nth-last-of-type(1) {
+          text-align: center;
+          font-weight: var(--weight4);
+          font-size: var(--font-size6);
+          color: #999999;
+          margin-top: 20px;
+          margin-bottom: 20px;
+        }
+      }
 
       h2 {
         font-weight: var(--weight1);
@@ -25,17 +44,8 @@ export const StyledLoginFull = styled.div`
         color: var(--color-gray600);
       }
 
-      div {
+      button {
         margin-top: 15px;
-      }
-
-      p {
-        text-align: center;
-        font-weight: var(--weight4);
-        font-size: var(--font-size6);
-        color: #999999;
-        margin-top: 20px;
-        margin-bottom: 20px;
       }
     }
 
@@ -70,4 +80,9 @@ export const StyledLink = styled(Link)`
     border-color: #828282;
     color: var(--color-gray100);
   }
+`;
+
+export const StyledError = styled.p`
+  margin-top: 10px;
+  color: red;
 `;

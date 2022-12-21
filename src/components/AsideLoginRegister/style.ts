@@ -14,13 +14,17 @@ export const StyledAsideContainer = styled.aside`
 
   & > div {
     width: 100%;
-    max-width: 380px;
+    max-width: 450px;
     padding: 13px;
     display: flex;
     align-items: center;
     gap: 19px;
     border: 1px solid var(--color-gray100);
     border-radius: var(--radius3);
+
+    @media (min-width: 800px) {
+      max-width: 380px;
+    }
 
     & > div {
       border: 1px solid transparent;
