@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { CartContext } from "../../providers/cartContext";
-import { iListProduct } from "../../providers/mainListContext";
+import { iListProduct } from "../../providers/mainListContext/types";
 import { Button } from "../Button";
 import { StyledCard } from "./style";
 

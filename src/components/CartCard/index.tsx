@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { CartContext } from "../../providers/cartContext";
-import { iListProduct } from "../../providers/mainListContext";
 import trashIcon from "../../assets/img/trash-icon.svg";
 import { StyledCartCard } from "./style";
 import { Button } from "../Button";
+import { iListProduct } from "../../providers/mainListContext/types";
 
 export const CartCard = ({ id, name, price, img, counter }: iListProduct) => {
   const { removeItemFromCart, addCounter, subtractCounter } =

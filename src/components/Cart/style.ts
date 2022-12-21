@@ -1,10 +1,16 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { ModalFadeIn, ModalFadeOut } from "../../styles/animations";
+
+export interface iStyledCartProps {
+  isClosing?: boolean;
+}
 
 export const StyledModalWrapper = styled.div`
   width: 100%;
   min-height: 100vh;
   background-color: rgba(18, 18, 20, 0.5);
   position: fixed;
+  z-index: 1;
   bottom: 0px;
   display: flex;
   align-items: center;
@@ -12,7 +18,7 @@ export const StyledModalWrapper = styled.div`
   padding: 0 15px;
 `;
 
-export const StyledCart = styled.div`
+export const StyledCart = styled.div<iStyledCartProps>`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -20,6 +26,19 @@ export const StyledCart = styled.div`
   border-radius: 5px;
   position: relative;
   bottom: 100px;
+  ${({ isClosing }) => {
+    if (isClosing) {
+      return css`
+        animation: ${ModalFadeOut} 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53)
+          both;
+      `;
+    } else {
+      return css`
+        animation: ${ModalFadeIn} 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+          forwards;
+      `;
+    }
+  }}
 `;
 
 export const StyledCartHeader = styled.div`

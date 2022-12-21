@@ -1,31 +1,16 @@
 import React, { useContext, useState } from "react";
 import { createContext } from "react";
 import { toast } from "react-toastify";
-import { iListProduct, MainListContext } from "../mainListContext";
-
-export interface iCartContextProps {
-  children: React.ReactNode;
-}
-
-export interface iCartContextValue {
-  cartProducts: iListProduct[];
-  addItemToCart: (id: number) => void;
-  removeItemFromCart: (id: number) => void;
-  getTotalPrice: () => string;
-  isCartOpen: boolean;
-  openCart: () => void;
-  closeCart: () => void;
-  clearCart: () => void;
-  addCounter: (id: number) => void;
-  subtractCounter: (id: number) => void;
-  productCounter: number;
-}
+import { MainListContext } from "../mainListContext";
+import { iListProduct } from "../mainListContext/types";
+import { iCartContextProps, iCartContextValue } from "./types";
 
 export const CartContext = createContext({} as iCartContextValue);
 
 export const CartProvider = ({ children }: iCartContextProps) => {
   const { mainProductsList } = useContext(MainListContext);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [cartProducts, setCartProducts] = useState([] as iListProduct[]);
   const [productCounter, setProductCounter] = useState(1);
 
@@ -73,7 +58,11 @@ export const CartProvider = ({ children }: iCartContextProps) => {
   };
 
   const closeCart = () => {
-    setIsCartOpen(false);
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsCartOpen(false);
+      setIsClosing(false);
+    }, 600);
   };
 
   const clearCart = () => {
@@ -115,6 +104,7 @@ export const CartProvider = ({ children }: iCartContextProps) => {
         clearCart,
         addCounter,
         subtractCounter,
+        isClosing,
       }}
     >
       {children}

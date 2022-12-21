@@ -11,11 +11,11 @@ import {
 } from "./style";
 
 export const CartFull = () => {
-  const { cartProducts, closeCart } = useContext(CartContext);
+  const { cartProducts, closeCart, isClosing } = useContext(CartContext);
 
   return (
     <StyledModalWrapper>
-      <StyledCart>
+      <StyledCart isClosing={isClosing}>
         <StyledCartHeader>
           <h2>Carrinho de compras</h2>
           <button onClick={() => closeCart()}>X</button>

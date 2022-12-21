@@ -38,6 +38,13 @@ export const StyledCartCard = styled.li`
       button {
         background: none;
         border: none;
+
+        img {
+          &:hover {
+            filter: invert(52%) sepia(58%) saturate(543%) hue-rotate(93deg)
+              brightness(95%) contrast(90%);
+          }
+        }
       }
     }
 

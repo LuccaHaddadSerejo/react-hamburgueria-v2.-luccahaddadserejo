@@ -1,31 +1,6 @@
-import React, { useState, SetStateAction, ChangeEvent } from "react";
+import React, { useState, ChangeEvent } from "react";
 import { createContext } from "react";
-
-export interface iMainContextProps {
-  children: React.ReactNode;
-}
-
-export interface iListProduct {
-  id: number;
-  name: string;
-  category: string;
-  price: number;
-  img: string;
-  counter: number;
-}
-
-export interface iMainContextValue {
-  mainProductsList: iListProduct[];
-  setMainProductsList: React.Dispatch<SetStateAction<iListProduct[]>>;
-  setFilteredProducts: React.Dispatch<SetStateAction<iListProduct[]>>;
-  setFilterState: React.Dispatch<SetStateAction<boolean>>;
-  searchValue: string;
-  filterState: boolean;
-  handleChangeSearch: (event: ChangeEvent<HTMLInputElement>) => void;
-  emptyFilter: () => void;
-  filledFilter: () => void;
-  clearFilter: () => void;
-}
+import { iListProduct, iMainContextProps, iMainContextValue } from "./types";
 
 export const MainListContext = createContext({} as iMainContextValue);
 
@@ -40,6 +15,8 @@ export const MainListProvider = ({ children }: iMainContextProps) => {
   const [filterState, setFilterState] = useState(false);
 
   const [searchValue, setSearchValue] = useState("");
+
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const handleChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
@@ -66,6 +43,20 @@ export const MainListProvider = ({ children }: iMainContextProps) => {
     setMainProductsList(filteredProducts);
     setFilterState(false);
     setSearchValue("");
+    setFilterState(false);
+  };
+
+  const createFilter = () => {
+    searchValue === "" ? emptyFilter() : filledFilter();
+  };
+
+  const createFilterMobile = () => {
+    searchValue === "" ? emptyFilter() : filledFilter();
+    setIsFilterOpen(false);
+  };
+
+  const openFilter = () => {
+    setIsFilterOpen(true);
   };
 
   return (
@@ -81,6 +72,10 @@ export const MainListProvider = ({ children }: iMainContextProps) => {
         emptyFilter,
         filledFilter,
         clearFilter,
+        createFilter,
+        createFilterMobile,
+        openFilter,
+        isFilterOpen,
       }}
     >
       {children}
